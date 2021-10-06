@@ -1,8 +1,8 @@
 FROM ghcr.io/rekgrpth/gost.docker
-#ARG PYTHON_VERSION=3.9
+ARG PYTHON_VERSION=3.9
 ENV GROUP=powa \
     PYTHONIOENCODING=UTF-8 \
-#    PYTHONPATH="/usr/local/lib/python${PYTHON_VERSION}/site-packages/powa:/usr/local/lib/python${PYTHON_VERSION}:/usr/local/lib/python${PYTHON_VERSION}/lib-dynload:/usr/local/lib/python${PYTHON_VERSION}/site-packages" \
+    PYTHONPATH="/usr/local/lib/python${PYTHON_VERSION}:/usr/local/lib/python${PYTHON_VERSION}/lib-dynload:/usr/local/lib/python${PYTHON_VERSION}/site-packages" \
     USER=powa
 RUN set -eux; \
     addgroup -S "${GROUP}"; \
