@@ -34,7 +34,7 @@ RUN set -eux; \
         psycopg2 \
         python-pcre \
         sqlalchemy \
-        tornado \
+        tornado==5.1 \
         uwsgi \
     ; \
     cd /; \
@@ -50,5 +50,5 @@ RUN set -eux; \
     find /usr -type f -name "*.la" -delete; \
     rm -rf "${HOME}" /usr/share/doc /usr/share/man /usr/local/share/doc /usr/local/share/man; \
     ln -s powa.wsgi "/usr/local/lib/python${PYTHON_VERSION}/site-packages/powa/wsgi.py"; \
-    sed -i "s|WSGIAdapter|WSGIContainer|g" "/usr/local/lib/python${PYTHON_VERSION}/site-packages/powa/wsgi.py"; \
+#    sed -i "s|WSGIAdapter|WSGIContainer|g" "/usr/local/lib/python${PYTHON_VERSION}/site-packages/powa/wsgi.py"; \
     echo done
