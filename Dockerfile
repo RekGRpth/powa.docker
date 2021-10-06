@@ -29,9 +29,13 @@ RUN set -eux; \
     ; \
     cd "${HOME}"; \
     pip install --no-cache-dir --ignore-installed --prefix /usr/local \
+        greenlet \
         powa-web \
+        psycopg2 \
         python-pcre \
-        setuptools \
+#        setuptools \
+        sqlalchemy \
+        tornado \
         uwsgi \
     ; \
     cd /; \
