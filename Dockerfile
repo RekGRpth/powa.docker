@@ -26,20 +26,23 @@ RUN set -eux; \
         py3-pip \
         py3-wheel \
         python3-dev \
+        py3-greenlet \
+        py3-psycopg2 \
+        py3-sqlalchemy \
     ; \
     cd "${HOME}"; \
-    pip install --no-cache-dir --ignore-installed --prefix /usr/local \
-        greenlet \
+    pip install --no-cache-dir --prefix /usr/local \
         powa-web \
-        psycopg2 \
         python-pcre \
-        sqlalchemy \
         tornado==5.1 \
-        uwsgi \
     ; \
     cd /; \
     apk add --no-cache --virtual .pgadmin-rundeps \
+        py3-greenlet \
+        py3-psycopg2 \
+        py3-sqlalchemy \
         su-exec \
+        uwsgi-python3 \
         $(scanelf --needed --nobanner --format '%n#p' --recursive /usr/local | tr ',' '\n' | sort -u | while read -r lib; do test ! -e "/usr/local/lib/$lib" && echo "so:$lib"; done) \
     ; \
     find /usr/local/bin -type f -exec strip '{}' \;; \
