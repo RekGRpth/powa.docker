@@ -1,5 +1,5 @@
 FROM ghcr.io/rekgrpth/gost.docker:latest
-ARG DOCKER_PYTHON_VERSION=3.9
+ARG DOCKER_PYTHON_VERSION=3.10
 ENV GROUP=powa \
     PYTHONIOENCODING=UTF-8 \
     PYTHONPATH="/usr/local/lib/python$DOCKER_PYTHON_VERSION:/usr/local/lib/python$DOCKER_PYTHON_VERSION/lib-dynload:/usr/local/lib/python$DOCKER_PYTHON_VERSION/site-packages" \
