@@ -14,9 +14,8 @@ docker run \
     --hostname powa \
     --mount type=bind,source=/etc/certs,destination=/etc/certs,readonly \
     --mount type=bind,source=/run/postgresql,destination=/run/postgresql \
-    --mount type=bind,source=/run/uwsgi,destination=/run/uwsgi \
     --mount type=volume,source=powa,destination=/home \
     --name powa \
     --network name=docker \
     --restart always \
-    ghcr.io/rekgrpth/powa.docker uwsgi --ini powa.ini
+    ghcr.io/rekgrpth/powa.docker

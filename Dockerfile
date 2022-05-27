@@ -1,5 +1,6 @@
 FROM ghcr.io/rekgrpth/gost.docker:latest
 ARG DOCKER_PYTHON_VERSION=3.10
+CMD [ "powa-web" ]
 ENV GROUP=powa \
     PYTHONIOENCODING=UTF-8 \
     PYTHONPATH="/usr/local/lib/python$DOCKER_PYTHON_VERSION:/usr/local/lib/python$DOCKER_PYTHON_VERSION/lib-dynload:/usr/local/lib/python$DOCKER_PYTHON_VERSION/site-packages" \
@@ -23,6 +24,7 @@ RUN set -eux; \
         py3-pip \
         py3-psycopg2 \
         py3-sqlalchemy \
+        py3-tornado \
         py3-wheel \
         python3-dev \
     ; \
@@ -30,14 +32,13 @@ RUN set -eux; \
     pip install --no-cache-dir --prefix /usr/local \
         powa-web \
         python-pcre \
-        tornado==5.1 \
     ; \
     cd /; \
     apk add --no-cache --virtual .powa \
         py3-greenlet \
         py3-psycopg2 \
         py3-sqlalchemy \
-        uwsgi-python3 \
+        py3-tornado \
         $(scanelf --needed --nobanner --format '%n#p' --recursive /usr/local | tr ',' '\n' | grep -v "^$" | grep -v -e libcrypto | sort -u | while read -r lib; do test -z "$(find /usr/local/lib -name "$lib")" && echo "so:$lib"; done) \
     ; \
     find /usr/local/bin -type f -exec strip '{}' \;; \
@@ -48,5 +49,4 @@ RUN set -eux; \
     find /usr -type f -name "*.pyc" -delete; \
     mkdir -p "$HOME"; \
     chown -R "$USER":"$GROUP" "$HOME"; \
-    ln -s powa.wsgi "/usr/local/lib/python$DOCKER_PYTHON_VERSION/site-packages/powa/wsgi.py"; \
     echo done
