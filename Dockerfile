@@ -1,5 +1,5 @@
 FROM ghcr.io/rekgrpth/gost.docker:latest
-ARG DOCKER_PYTHON_VERSION=3.10
+ARG DOCKER_PYTHON_VERSION=3.11
 CMD [ "gosu", "powa", "powa-web" ]
 ENV GROUP=powa \
     PYTHONIOENCODING=UTF-8 \
