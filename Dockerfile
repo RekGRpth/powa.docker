@@ -1,4 +1,9 @@
-FROM ghcr.io/rekgrpth/gost.docker:latest
+FROM alpine:latest
+ADD bin /usr/local/bin
+ENTRYPOINT [ "docker_entrypoint.sh" ]
+ENV HOME=/home
+MAINTAINER RekGRpth
+WORKDIR "$HOME"
 ARG DOCKER_PYTHON_VERSION=3.11
 CMD [ "gosu", "powa", "powa-web" ]
 ENV GROUP=powa \
@@ -6,6 +11,8 @@ ENV GROUP=powa \
     PYTHONPATH="/usr/local/lib/python$DOCKER_PYTHON_VERSION:/usr/local/lib/python$DOCKER_PYTHON_VERSION/lib-dynload:/usr/local/lib/python$DOCKER_PYTHON_VERSION/site-packages" \
     USER=powa
 RUN set -eux; \
+    ln -fs su-exec /sbin/gosu; \
+    chmod +x /usr/local/bin/*.sh; \
     apk update --no-cache; \
     apk upgrade --no-cache; \
     addgroup -S "$GROUP"; \
@@ -35,10 +42,17 @@ RUN set -eux; \
     ; \
     cd /; \
     apk add --no-cache --virtual .powa \
+        busybox-extras \
+        busybox-suid \
+        ca-certificates \
+        musl-locales \
         py3-greenlet \
         py3-psycopg2 \
         py3-sqlalchemy \
         py3-tornado \
+        shadow \
+        su-exec \
+        tzdata \
         $(scanelf --needed --nobanner --format '%n#p' --recursive /usr/local | tr ',' '\n' | grep -v "^$" | grep -v -e libcrypto | sort -u | while read -r lib; do test -z "$(find /usr/local/lib -name "$lib")" && echo "so:$lib"; done) \
     ; \
     find /usr/local/bin -type f -exec strip '{}' \;; \
