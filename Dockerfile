@@ -27,16 +27,11 @@ RUN set -eux; \
         musl-dev \
         pcre2-dev \
         pcre-dev \
-        py3-greenlet \
         py3-pip \
-        py3-psycopg2 \
-        py3-sqlalchemy \
-        py3-tornado \
-        py3-wheel \
         python3-dev \
     ; \
     cd "$HOME"; \
-    pip install --no-cache-dir --prefix /usr/local \
+    pip install --no-cache-dir --ignore-installed --prefix /usr/local \
         powa-web \
         python-pcre \
     ; \
@@ -46,10 +41,7 @@ RUN set -eux; \
         busybox-suid \
         ca-certificates \
         musl-locales \
-        py3-greenlet \
-        py3-psycopg2 \
-        py3-sqlalchemy \
-        py3-tornado \
+        python3 \
         shadow \
         su-exec \
         tzdata \
