@@ -34,6 +34,7 @@ RUN set -eux; \
     pip install --no-cache-dir --ignore-installed --prefix /usr/local \
         powa-web \
         python-pcre \
+        sqlalchemy==1.4 \
     ; \
     cd /; \
     apk add --no-cache --virtual .powa \
