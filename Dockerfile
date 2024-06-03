@@ -4,7 +4,7 @@ ENTRYPOINT [ "docker_entrypoint.sh" ]
 ENV HOME=/home
 MAINTAINER RekGRpth
 WORKDIR "$HOME"
-ARG DOCKER_PYTHON_VERSION=3.11
+ARG DOCKER_PYTHON_VERSION=3.12
 CMD [ "gosu", "powa", "powa-web" ]
 ENV GROUP=powa \
     PYTHONIOENCODING=UTF-8 \
